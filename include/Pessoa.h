@@ -11,7 +11,7 @@ class Pessoa
     public:
         Pessoa() {}
         Pessoa(int id, int idade, int x, int y) : id(id), idade(idade), endereco(Endereco(x,y)) {}
-        std::string ToString() { return "P" + std::to_string(id) + " Idade:" + std::to_string(idade) + "Endereço: " + endereco.ToString(); };
+        std::string ToString() { return "P" + std::to_string(id) + " Idade: " + std::to_string(idade) + " Endereço: " + endereco.ToString(); };
         float CalculaDistancia(Endereco enderecoParaComparar) { return endereco.CalculaDistanciaPara(enderecoParaComparar); };
 
     private:
