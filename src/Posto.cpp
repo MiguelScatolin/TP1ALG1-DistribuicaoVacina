@@ -26,9 +26,13 @@ void Posto::printaPreferenciaPessoas() {
 };
 
 void Posto::printaPessoasParaVacinar() {
+    if(pessoasParaVacinar.size() == 0)
+        return;
+    
     std::cout << obterStringId() << std::endl;
+
     for(int i = 0; i < pessoasParaVacinar.size(); i++)
-        std::cout << pessoasParaVacinar[i]->obterStringId();
+        std::cout << pessoasParaVacinar[i]->obterStringId() << " ";
     std::cout << std::endl;
 };
 
@@ -53,6 +57,7 @@ bool Posto::processarPedidoPessoa(Pessoa *pessoa) {
         Pessoa* pessoaMaisNovaNaListaDeVacinacao = pessoasParaVacinar[pessoasParaVacinar.size() - 1];
         if(pessoa->obterIdade() > pessoaMaisNovaNaListaDeVacinacao->obterIdade()) {
             pessoasParaVacinar[pessoasParaVacinar.size() - 1] = pessoa;
+            sort(pessoasParaVacinar.begin(), pessoasParaVacinar.end(), mais_prioritario());
             pessoaMaisNovaNaListaDeVacinacao->escolherPosto();
             return true;
         }
