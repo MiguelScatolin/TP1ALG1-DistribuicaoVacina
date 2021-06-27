@@ -18,12 +18,14 @@ class Pessoa
         std::string toString();
         std::string obterStringId();
         std::string obterStringIdade();
+        std::string obterIdentificador();
         std::string obterStringEndereco();
         float calculaDistancia(Endereco enderecoParaComparar);
         Endereco obterEndereco();
         int obterIdade();
         void adicionarPosto(Posto *posto);
         void printaPreferenciaPostos();
+        void escolherPosto();
 
     private:
 
@@ -46,6 +48,7 @@ class Pessoa
         int id;
         int idade;
         std::vector<PreferenciaPosto> rankingPostos;
+        Posto* postoEscolhido;
         
 };
 

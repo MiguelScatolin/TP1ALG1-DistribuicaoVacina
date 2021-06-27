@@ -2,7 +2,9 @@
 
 std::string Pessoa::toString() { return obterStringId() + " " + obterStringIdade() + " " + obterStringEndereco(); }
 
-std::string Pessoa::obterStringId() { return "P" + std::to_string(id); };
+std::string Pessoa::obterStringId() { return std::to_string(id); };
+
+std::string Pessoa::obterIdentificador() { return "P" + obterStringId(); };
 
 std::string Pessoa::obterStringIdade() { return "Idade: " + std::to_string(idade); };
 
@@ -24,4 +26,12 @@ void Pessoa::printaPreferenciaPostos() {
     std::cout << "Preferencias " << obterStringId() << ": " << std::endl;
     for(int i = 0; i < rankingPostos.size(); i++)
         std::cout << rankingPostos[i].obterPosto()->obterStringId()  << std::endl;
+}
+
+void Pessoa::escolherPosto() {
+    for(int i = 0; i < rankingPostos.size(); i++) {
+        bool pedidoAceito = rankingPostos[i].obterPosto()->processarPedidoPessoa(this);
+        if(pedidoAceito)
+            break;
+    }
 }

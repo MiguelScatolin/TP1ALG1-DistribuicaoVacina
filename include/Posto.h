@@ -17,11 +17,14 @@ class Posto
         Posto(int id, int capacidade, int x, int y) : id(id), capacidade(capacidade), endereco(Endereco(x,y)) {}
         std::string toString();
         std::string obterStringId();
+        std::string obterIdentificador();
         float calculaDistancia(Endereco enderecoParaComparar);
         Endereco obterEndereco();
         void adicionarPessoa(Pessoa *pessoa);
         void printaPreferenciaPessoas();
+        void printaPessoasParaVacinar();
         void copiaPreferenciaPessoas(Posto *posto);
+        bool processarPedidoPessoa(Pessoa *pessoa);
 
     private:
         class PreferenciaPessoa
@@ -40,6 +43,7 @@ class Posto
         int id;
         int capacidade;
         std::vector<PreferenciaPessoa> rankingPessoas;
+        std::vector<Pessoa*> pessoasParaVacinar;
 
 };
 
