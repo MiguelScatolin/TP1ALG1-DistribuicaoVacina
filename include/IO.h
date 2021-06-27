@@ -7,7 +7,7 @@
 #include "Pessoa.h"
 #include "Posto.h"
 
-std::vector<Posto> obterPostos();
-std::vector<Pessoa> obterPessoas();
+std::vector<Posto*> obterPostos();
+std::vector<Pessoa*> obterPessoas();
 
 #endif
