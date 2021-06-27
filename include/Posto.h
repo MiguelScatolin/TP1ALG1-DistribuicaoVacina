@@ -3,7 +3,6 @@
 #define POSTO_H
 #pragma once
 
-#include <algorithm>
 #include <string>
 #include <vector>
 #include <iostream>
@@ -22,6 +21,7 @@ class Posto
         Endereco obterEndereco();
         void adicionarPessoa(Pessoa *pessoa);
         void printaPreferenciaPessoas();
+        void copiaPreferenciaPessoas(Posto *posto);
 
     private:
         class PreferenciaPessoa
@@ -29,7 +29,7 @@ class Posto
             public:
                 PreferenciaPessoa(Pessoa* pessoa, float distancia) : pessoa(pessoa), distancia(distancia) {}
                 Pessoa* obterPessoa();
-                bool operator > (const PreferenciaPessoa* preferenciaPessoa) const;
+                bool operator > (const PreferenciaPessoa& preferenciaPessoa) const;
 
             private:
                 Pessoa* pessoa;

@@ -1,3 +1,5 @@
+#include <algorithm>
+#include <functional>
 #include "Posto.h"
 #include "Pessoa.h"
 
@@ -12,7 +14,7 @@ Endereco Posto::obterEndereco() { return endereco; };
 void Posto::adicionarPessoa(Pessoa *pessoa) {
     float distanciaAoPessoa = calculaDistancia(pessoa->obterEndereco());
     rankingPessoas.push_back(PreferenciaPessoa(pessoa, distanciaAoPessoa));
-    //std::sort(rankingPessoas.begin(), rankingPessoas.end(), std::greater<PreferenciaPessoa>());
+    std::sort(rankingPessoas.begin(), rankingPessoas.end(), std::greater<PreferenciaPessoa>()); // ordena de forma descendente
 };
 
 void Posto::printaPreferenciaPessoas() {
@@ -21,9 +23,13 @@ void Posto::printaPreferenciaPessoas() {
         std::cout << rankingPessoas[i].obterPessoa()->obterStringId()  << std::endl;
 };
 
+void Posto::copiaPreferenciaPessoas(Posto *posto) {
+    rankingPessoas = posto->rankingPessoas;
+}
+
 
 Pessoa* Posto::PreferenciaPessoa::obterPessoa() { return pessoa; };
-bool Posto::PreferenciaPessoa::operator > (const PreferenciaPessoa* preferenciaPessoa) const
+bool Posto::PreferenciaPessoa::operator > (const PreferenciaPessoa& preferenciaPessoa) const
 {
-    return (pessoa->obterIdade() > preferenciaPessoa->pessoa->obterIdade());
+    return pessoa->obterIdade() > preferenciaPessoa.pessoa->obterIdade();
 };

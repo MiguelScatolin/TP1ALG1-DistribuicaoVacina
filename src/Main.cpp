@@ -13,12 +13,17 @@ int main(int argc, char* argv[]) {
         for(int postoIndex = 0; postoIndex < postos.size(); postoIndex++) {
             for(int pessoaIndex = 0; pessoaIndex < pessoas.size(); pessoaIndex++) {
                 pessoas[pessoaIndex]->adicionarPosto(postos[postoIndex]);
-                postos[postoIndex]->adicionarPessoa(pessoas[pessoaIndex]);
+
+                if(postoIndex == 0)
+                    postos[postoIndex]->adicionarPessoa(pessoas[pessoaIndex]);
+                else
+                    postos[postoIndex]->copiaPreferenciaPessoas(postos[0]); // a lista de preferencias de todos os postos será igual
+
             }
         }
 
-        for(int i = 0; i < pessoas.size(); i++) {
-            pessoas[i]->printaPreferenciaPostos();
+        for(int i = 0; i < postos.size(); i++) {
+            postos[i]->printaPreferenciaPessoas();
             std::cout << std::endl;
         }
 
