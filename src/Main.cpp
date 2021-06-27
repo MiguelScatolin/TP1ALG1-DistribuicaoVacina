@@ -22,11 +22,6 @@ int main(int argc, char* argv[]) {
             }
         }
 
-        for(int i = 0; i < postos.size(); i++) {
-            postos[i]->printaPreferenciaPessoas();
-            std::cout << std::endl;
-        }
-
         return 0;
     }
     catch (char exception[]) {
