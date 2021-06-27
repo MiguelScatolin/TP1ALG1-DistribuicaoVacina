@@ -5,7 +5,7 @@ std::vector<Posto*> obterPostos() {
 
     std::cin >> numeroDePostos;
 
-    std::vector<Posto*> postos(numeroDePostos);
+    std::vector<Posto*> postos;
 
     for (int i = 0; i < numeroDePostos; i++) {
         int capacidade,
@@ -13,7 +13,6 @@ std::vector<Posto*> obterPostos() {
             y;
         std::cin >> capacidade >> x >> y;
         postos.insert(postos.begin() + i, new Posto(i, capacidade, x, y));
-        std::cout << postos[i]->toString() << std::endl;
     }
 
     return postos;
@@ -24,7 +23,7 @@ std::vector<Pessoa*> obterPessoas() {
 
     std::cin >> numeroDePessoas;
 
-    std::vector<Pessoa*> pessoas(numeroDePessoas);
+    std::vector<Pessoa*> pessoas;
 
     for (int i = 0; i < numeroDePessoas; i++) {
         int cidade,
@@ -32,7 +31,6 @@ std::vector<Pessoa*> obterPessoas() {
             y;
         std::cin >> cidade >> x >> y;
         pessoas.insert(pessoas.begin() + i, new Pessoa(i, cidade, x, y));
-        std::cout << pessoas[i]->toString() << std::endl;
     }
 
     return pessoas;
