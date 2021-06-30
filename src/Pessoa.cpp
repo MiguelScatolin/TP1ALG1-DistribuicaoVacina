@@ -14,7 +14,9 @@ float Pessoa::calculaDistancia(Endereco enderecoParaComparar) { return endereco.
 
 Endereco Pessoa::obterEndereco() { return endereco; };
 
-int Pessoa::obterIdade() { return idade; };
+int Pessoa::obterIdade() const { return idade; };
+
+int Pessoa::obterId() const { return id; }
 
 void Pessoa::adicionarPosto(Posto *posto) {
     float distanciaAoPosto = calculaDistancia(posto->obterEndereco());
@@ -34,4 +36,22 @@ void Pessoa::escolherPosto() {
         if(pedidoAceito)
             break;
     }
+}
+
+bool Pessoa::operator > (const Pessoa& pessoaComparada) const {
+    return (
+        obterIdade() > pessoaComparada.obterIdade()
+        || (
+            obterIdade() == pessoaComparada.obterIdade()
+            && obterId() < pessoaComparada.obterId()
+        )
+    );
+}
+
+Posto* Pessoa::PreferenciaPosto::obterPosto() { return posto; }
+
+bool Pessoa::PreferenciaPosto::operator < (const PreferenciaPosto& preferenciaPosto) const
+{
+    return (distancia < preferenciaPosto.distancia
+            || (distancia == preferenciaPosto.distancia && posto->obterId() < posto->obterId()));
 }

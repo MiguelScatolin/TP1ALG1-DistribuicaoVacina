@@ -13,6 +13,8 @@ float Posto::calculaDistancia(Endereco enderecoParaComparar) { return endereco.c
 
 Endereco Posto::obterEndereco() { return endereco; };
 
+int Posto::obterId() { return id; }
+
 void Posto::adicionarPessoa(Pessoa *pessoa) {
     float distanciaAoPessoa = calculaDistancia(pessoa->obterEndereco());
     rankingPessoas.push_back(PreferenciaPessoa(pessoa, distanciaAoPessoa));
@@ -31,8 +33,12 @@ void Posto::printaPessoasParaVacinar() {
     
     std::cout << obterStringId() << std::endl;
 
-    for(int i = 0; i < pessoasParaVacinar.size(); i++)
-        std::cout << pessoasParaVacinar[i]->obterStringId() << " ";
+    for(int i = 0; i < pessoasParaVacinar.size(); i++) {
+        std::cout << pessoasParaVacinar[i]->obterStringId();
+        if(i < (pessoasParaVacinar.size() - 1))
+            std::cout << " ";
+    }
+
     std::cout << std::endl;
 };
 
@@ -40,35 +46,34 @@ void Posto::copiaPreferenciaPessoas(Posto *posto) {
     rankingPessoas = posto->rankingPessoas;
 }
 
-struct mais_prioritario
+struct maisPrioritario
 {
-    inline bool operator() (Pessoa* pessoa1, Pessoa* pessoa2)
-    {
-        return (pessoa1->obterIdade() > pessoa2->obterIdade());
+    inline bool operator()(Pessoa* l, Pessoa* r) { // essa função é necessária porque o operador de comparação de Pessoa é chamado como referencia no sort
+        return *l > *r;
     }
 };
 
 bool Posto::processarPedidoPessoa(Pessoa *pessoa) {
     if(pessoasParaVacinar.size() < capacidade) {
         pessoasParaVacinar.push_back(pessoa);
-        sort(pessoasParaVacinar.begin(), pessoasParaVacinar.end(), mais_prioritario());
+        std::sort(pessoasParaVacinar.begin(), pessoasParaVacinar.end(), maisPrioritario());
         return true;
     } else {
-        Pessoa* pessoaMaisNovaNaListaDeVacinacao = pessoasParaVacinar[pessoasParaVacinar.size() - 1];
-        if(pessoa->obterIdade() > pessoaMaisNovaNaListaDeVacinacao->obterIdade()) {
+        Pessoa* pessoaMenosPrioritariaNaListaDeVacinacao = pessoasParaVacinar[pessoasParaVacinar.size() - 1];
+        if(*pessoa > *pessoaMenosPrioritariaNaListaDeVacinacao) {
             pessoasParaVacinar[pessoasParaVacinar.size() - 1] = pessoa;
-            sort(pessoasParaVacinar.begin(), pessoasParaVacinar.end(), mais_prioritario());
-            pessoaMaisNovaNaListaDeVacinacao->escolherPosto();
+            std::sort(pessoasParaVacinar.begin(), pessoasParaVacinar.end(), maisPrioritario());
+            pessoaMenosPrioritariaNaListaDeVacinacao->escolherPosto();
             return true;
         }
-        else
+        else 
             return false;
 
     }
 }
 
 Pessoa* Posto::PreferenciaPessoa::obterPessoa() { return pessoa; };
-bool Posto::PreferenciaPessoa::operator > (const PreferenciaPessoa& preferenciaPessoa) const
+bool Posto::PreferenciaPessoa::operator > (const PreferenciaPessoa& preferenciaAComparar) const
 {
-    return pessoa->obterIdade() > preferenciaPessoa.pessoa->obterIdade();
+    return *pessoa > *(preferenciaAComparar.pessoa);
 };

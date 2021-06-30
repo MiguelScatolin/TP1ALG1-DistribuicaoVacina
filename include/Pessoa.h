@@ -22,7 +22,9 @@ class Pessoa
         std::string obterStringEndereco();
         float calculaDistancia(Endereco enderecoParaComparar);
         Endereco obterEndereco();
-        int obterIdade();
+        int obterIdade() const;
+        int obterId() const;
+        bool operator > (const Pessoa& pessoaComparada) const;
         void adicionarPosto(Posto *posto);
         void printaPreferenciaPostos();
         void escolherPosto();
@@ -33,11 +35,8 @@ class Pessoa
         {
             public:
                 PreferenciaPosto(Posto* posto, float distancia) : posto(posto), distancia(distancia) {}
-                Posto* obterPosto() { return posto; }
-                bool operator < (const PreferenciaPosto& preferenciaPosto) const
-                {
-                    return (distancia < preferenciaPosto.distancia);
-                }
+                Posto* obterPosto();
+                bool operator < (const PreferenciaPosto& preferenciaPosto) const;
 
             private:
                 Posto* posto;

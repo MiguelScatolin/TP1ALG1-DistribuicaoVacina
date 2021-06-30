@@ -1,6 +1,4 @@
 #include <iostream>
-#include <fstream>
-#include <sstream>
 #include "Pessoa.h"
 #include "Posto.h"
 #include "IO.h"

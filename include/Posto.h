@@ -20,6 +20,7 @@ class Posto
         std::string obterIdentificador();
         float calculaDistancia(Endereco enderecoParaComparar);
         Endereco obterEndereco();
+        int obterId();
         void adicionarPessoa(Pessoa *pessoa);
         void printaPreferenciaPessoas();
         void printaPessoasParaVacinar();
